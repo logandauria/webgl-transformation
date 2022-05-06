@@ -75,9 +75,8 @@ function setUpCamera() {
 // An example is shown for placing the teapot
 //
 function drawShapes() {
-    let modelMatrix = glMatrix.mat4.create();
+    
 
-    let cubeMatrix = glMatrix.mat4.create();
     let cubeTranslation = [3, 2, 0];
     let teapotTransform = [0, 1.5, 0];
     let pedestalTop1Translation = [3, 1, 0];
@@ -90,12 +89,16 @@ function drawShapes() {
     let pedestalMidScale = [1, 2, 1];
 
     // cube
+    let cubeMatrix = glMatrix.mat4.create();
     glMatrix.mat4.translate(cubeMatrix, cubeMatrix, cubeTranslation);
+    glMatrix.mat4.rotateY(cubeMatrix, cubeMatrix, radians(100));
+    glMatrix.mat4.rotateZ(cubeMatrix, cubeMatrix, radians(100));
     gl.uniformMatrix4fv(program.uModelT, false, cubeMatrix);
     gl.bindVertexArray(myCube.VAO);
     gl.drawElements(gl.TRIANGLES, myCube.indices.length, gl.UNSIGNED_SHORT, 0);
 
     // teapot
+    let modelMatrix = glMatrix.mat4.create();
     glMatrix.mat4.translate (modelMatrix,  modelMatrix, teapotTransform);
     glMatrix.mat4.rotateY (modelMatrix,  modelMatrix, radians(180.0));
     gl.uniformMatrix4fv (program.uModelT, false, modelMatrix);
